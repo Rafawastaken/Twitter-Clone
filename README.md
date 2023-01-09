@@ -6,6 +6,16 @@
 
 Twitter clone using Django and React
 
+## Technologies Used:
+
+- Backend:
+  - Django
+- Frontend:
+  - React
+  - Bootstrap 5
+- Database:
+  - Sqlite3
+
 ## Functionalities
 
 1. Tweets:
