@@ -1,6 +1,6 @@
 # Twitter Clone
 
-> Rafawastaken | January 2022
+> Rafawastaken | January 2023
 
 ## About
 
