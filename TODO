@@ -1,0 +1,21 @@
+Todo:
+  1. Tweets:
+    Create:
+      Text
+      Image - Media storage
+    Delete
+    Retweet
+
+  2. Users:
+    Register
+    Login
+    Logout
+    Profile:
+      Image
+      Text
+      Follow
+    Feed:
+      User's feed
+      User + who they follow
+
+  3. Following / Followers
