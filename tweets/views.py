@@ -3,20 +3,14 @@ from django.http import HttpResponse, Http404, JsonResponse
 
 from .models import Tweet
 
-
-# * REST API * -> Returns JSON data to be fed to frontend
-
-# Home view
+# Home view: Landing page
 def home_view(request, *args, **kwargs):
     print(args, kwargs)
-    return HttpResponse("<h2>Hello</h2>")
+    return render(request, "pages/home.html", context = {})
 
 # Tweet detail view
 def tweet_detail_view(request, tweet_id,  *args, **kwargs):
-    data = {
-        "id":tweet_id
-    }
-
+    data = { "id":tweet_id }
     status = 200 # Initial status OK
 
     try: # Try tp find tweet by id
@@ -25,6 +19,5 @@ def tweet_detail_view(request, tweet_id,  *args, **kwargs):
     except: # Tweet not found
         data['message'] = "Not found"
         status = 404 # Change status NOT FOUND
-        raise Http404
 
     return JsonResponse(data, status = status) # json dumps application/json
