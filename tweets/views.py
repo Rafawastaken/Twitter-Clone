@@ -1,7 +1,13 @@
+# Python
+import random
+
+# Django
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, JsonResponse
 
+# Local
 from .models import Tweet
+
 
 # Home view: Landing page
 def home_view(request, *args, **kwargs):
@@ -14,8 +20,9 @@ def tweet_list_view(request, *args, **kwargs):
     tweets = Tweet.objects.all()
     
     # Add all tweets to an array with tweets object
-    tweet_list = [{"id": tweet.id, "content":tweet.content} for tweet in tweets]
+    tweet_list = [{"id": tweet.id, "content":tweet.content, "likes":random.randint(0, 1000)} for tweet in tweets]
     data = {
+        "isUser": False,
         "response": tweet_list
     }
 
