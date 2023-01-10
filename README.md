@@ -13,6 +13,7 @@ Twitter clone using Django and React
 - Frontend:
   - React
   - Bootstrap 5.3
+- REST Api
 - Database:
   - Sqlite3
 
