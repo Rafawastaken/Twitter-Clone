@@ -11,7 +11,24 @@
   </div>
 </div>
 
-<div class="row" id="tweets">Loading...</div>
+<!-- Tweet form -->
+<div class="row mb-3">
+  <div class="col-md-4 mx-auto col-10 mb-3">
+    <form method="POST" action="/create-tweet">
+      {% csrf_token %}
+      <input type="hidden" value="/" name="next" />
+      <textarea name="content" class="form-control mb-2" placeholder="What's going on?" id=""></textarea>
+      </textarea>
+      <button class="btn btn-primary">Tweet</button>
+    </form>
+  </div>
+  <hr />
+</div>
+
+<div class="">
+  <div class="col-12 col-md-10 mx-auto mb-3 py-3 display-5">Other Tweets</div>
+  <div id="tweets" class="">Loading...</div>
+</div>
 
 <script>
   // Function to handle Likes
@@ -23,7 +40,7 @@
   // Like button
   function likeButton(tweet) {
     var buttonHtml = `
-    <button class="btn btn-primary btn-sm me-2" onclick="handleDidLike(${tweet.id}, ${tweet.likes})">
+    <button class="btn btn-success btn-sm me-2" onclick="handleDidLike(${tweet.id}, ${tweet.likes})">
       ${tweet.likes} Likes
     </button>`;
     return buttonHtml;
@@ -35,10 +52,10 @@
     <div class="col-12 col-md-10 mx-auto mb-3 border rounded py-3" id='tweet-${
       tweet.id
     }'>
-        <p> 
+        <p class="mx-3"> 
             ${tweet.content}
         </p> 
-        <div class='btn-group'>
+        <div class='btn-group mx-3'>
             ${likeButton(tweet)}
         </div>
     </div>`;
