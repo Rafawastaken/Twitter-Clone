@@ -27,6 +27,7 @@ Twitter clone using Django and React
        - Media Storage
    - Delete
    - Retweet
+   - Likes
 
 2. Users:
 

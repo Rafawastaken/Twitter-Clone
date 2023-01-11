@@ -7,6 +7,7 @@ from django.http import HttpResponse, Http404, JsonResponse
 
 # Local
 from .models import Tweet
+from .forms import TweetForm
 
 
 # Home view: Landing page
@@ -42,3 +43,13 @@ def tweet_detail_view(request, tweet_id,  *args, **kwargs):
         status = 404 # Change status NOT FOUND
 
     return JsonResponse(data, status = status) # json dumps application/json
+
+
+# create tweet form
+def tweet_create_view(request, *args, **kwargs):
+    form = TweetForm(request.POST or None)
+    if form.is_valid():
+        obj = form.save(commit = False)
+        obj.save()
+        form = TweetForm()
+    return render(request, 'components/form.html', context = {'form': form})

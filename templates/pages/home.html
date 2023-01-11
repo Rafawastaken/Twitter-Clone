@@ -6,7 +6,7 @@
 <!-- Content -->
 {% block content %}
 <div class="row text-center">
-  <div class="col">
+  <div class="col my-3">
     <div class="mt-3 h1">Welcome to Tweet Me!</div>
   </div>
 </div>
@@ -32,7 +32,9 @@
   // Function to format raw data into tweets
   function formatTweetElement(tweet) {
     formatedTweet = `
-    <div class="col-12 mb-3 border py-3" id='tweet-${tweet.id}'>
+    <div class="col-12 col-md-10 mx-auto mb-3 border rounded py-3" id='tweet-${
+      tweet.id
+    }'>
         <p> 
             ${tweet.content}
         </p> 
