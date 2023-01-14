@@ -22,6 +22,7 @@
         class="form-control mb-2"
         placeholder="What's going on?"
         id=""
+        required
       ></textarea>
 
       <button class="btn btn-primary">Tweet</button>
@@ -95,11 +96,11 @@
   };
 
   // DOM Tweet elment
-  const tweetElement = document.getElementById("tweets");
+  const tweetContainerElement = document.getElementById("tweets");
   const tweetCreateFormElement = document.getElementById("tweet-create-form");
 
   // Call load tweets
-  loadTweets(tweetElement);
+  loadTweets(tweetContainerElement);
 
   // Eventlistener for publish tweets form
   function handleFormSubmit(event) {
@@ -117,10 +118,17 @@
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
     xhr.onload = () => {
-      const serverResponse = xhr.response;
-      // console.log(serverResponse);
-      const tweetElement = document.getElementById("tweets");
-      loadTweets(tweetElement);
+      if (xhr.status === 201) {
+        const newTweet = JSON.parse(xhr.response);
+        const newTweetElement = formatTweetElement(newTweet);
+        const oldHtml = tweetContainerElement.innerHTML;
+
+        // Add new tweet element to current HTML
+        tweetContainerElement.innerHTML = newTweetElement + oldHtml;
+
+        // Reset form
+        myForm.reset();
+      }
     };
 
     xhr.send(myFormData);
