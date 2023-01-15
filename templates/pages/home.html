@@ -16,6 +16,8 @@
   <div class="col-md-4 mx-auto col-10 mb-3">
     <form method="POST" action="/create-tweet" id="tweet-create-form">
       {% csrf_token %}
+      <div class="alert alrt-danger d-none" id="tweet-create-error"></div>
+
       <input type="hidden" value="/" name="next" />
       <textarea
         name="content"
@@ -65,6 +67,19 @@
         </div>
     </div>`;
     return formatedTweet;
+  };
+
+  const handleTweetCreteError = (msg, display) => {
+    let errorContainer = document.getElementById("tweet-create-error");
+
+    if (display === true) {
+      // Show error
+      errorContainer.setAttribute("class", "d-block alert alert-danger");
+      errorContainer.innerText = msg;
+    } else {
+      errorContainer.setAttribute("class", "d-none alert alert-danger");
+      // Hide error
+    }
   };
 
   // Load tweets
@@ -118,6 +133,7 @@
 
     xhr.onload = () => {
       if (xhr.status === 201) {
+        handleTweetCreteError("", false);
         const newTweet = JSON.parse(xhr.response);
         const newTweetElement = formatTweetElement(newTweet);
         const oldHtml = tweetContainerElement.innerHTML;
@@ -128,18 +144,21 @@
         // Reset form
         myForm.reset();
       } else if (xhr.status === 400) {
-        // Handle bad request
-        const errorJson = xhr.response;
-        console.log(errorJson);
-      } else if (xhr.status === 500) {
-        // Handle server error
-        alert("Ops something is wrong with servers...");
-      }
-    };
+        const errorJson = JSON.parse(xhr.response);
+        const contentError = errorJson.content;
+        let contentErrorMsg;
 
-    // Process error
-    xhr.onerror = () => {
-      alert("Something went wrong... Try again later");
+        if (contentError) {
+          contentErrorMsg = contentError[0];
+          if (contentErrorMsg) {
+            handleTweetCreteError(contentErrorMsg, true);
+          } else {
+            alert("Something unexpected happend... please try again later");
+          }
+        } else {
+          alert("Something unexpected happend... please try again later");
+        }
+      }
     };
 
     xhr.send(myFormData);
